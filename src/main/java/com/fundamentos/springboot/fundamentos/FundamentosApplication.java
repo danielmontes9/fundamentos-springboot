@@ -5,6 +5,8 @@ import com.fundamentos.springboot.fundamentos.been.MyBeanWithDependency;
 import com.fundamentos.springboot.fundamentos.been.MyBeanWithProperties;
 import com.fundamentos.springboot.fundamentos.component.ComponentDependency;
 import com.fundamentos.springboot.fundamentos.pojo.UserPojo;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FundamentosApplication implements CommandLineRunner {
 
+	private final Log LOGGER = LogFactory.getLog(FundamentosApplication.class);
 	private MyBean myBean;
 	private ComponentDependency componentDependency;
 	private MyBeanWithDependency myBeanWithDependency;
@@ -44,5 +47,7 @@ public class FundamentosApplication implements CommandLineRunner {
 		System.out.println(myBeanWithProperties.function());
 
 		System.out.println(userPojo.getEmail() + "-" + userPojo.getPassword());
+
+		LOGGER.error("Esto es un error generado a partir de la aplicacion");
 	}
 }
