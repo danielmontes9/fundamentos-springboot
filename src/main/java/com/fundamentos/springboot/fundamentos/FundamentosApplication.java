@@ -69,19 +69,39 @@ public class FundamentosApplication implements CommandLineRunner {
 
 		LOGGER.info("Usuario con query method findByEmailAndName: " + userRepository.findByEmailAndName("user5@domain.com", "user5")
 				.orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
+
+		userRepository.findByNameLike("%p%")
+				.stream()
+				.forEach(user -> LOGGER.info("Usuario findByNameLike" + user));
+
+		userRepository.findByNameOrEmail(null, "user10@domain.com")
+				.stream()
+				.forEach(user -> LOGGER.info("Usuario findByNameOrEmail" + user));
+
+		userRepository.findByBirthDateBetween(LocalDate.of(2021, 01, 01), LocalDate.of(2023,12,31))
+				.stream()
+				.forEach(user -> LOGGER.info("Usuario entre el intervalo de fechas 2021 - 2023: " + user));
+
+		userRepository.findByNameLikeOrderByIdDesc("%user%")
+				.stream()
+				.forEach(user -> LOGGER.info("Usuario encontrado con like y ordenado DES" + user));
+
+		userRepository.findByNameContainingOrderByIdAsc("user")
+				.stream()
+				.forEach(user -> LOGGER.info("Usuario encontrado con containing y ordenado ASC" + user));
 	}
 
 
 	private void saveUsersInDataBase() {
-		User user1 = new User("user1", "user1@domain.com", LocalDate.of(2021, 03, 12));
-		User user2 = new User("user2", "user2@domain.com", LocalDate.of(2021, 04, 22));
-		User user3 = new User("user3", "user3@domain.com", LocalDate.of(2021, 05, 9));
-		User user4 = new User("user4", "user4@domain.com", LocalDate.of(2021, 06, 11));
-		User user5 = new User("user5", "user5@domain.com", LocalDate.of(2021, 07, 28));
-		User user6 = new User("user6", "user6@domain.com", LocalDate.of(2021, 8,11));
-		User user7 = new User("user7", "user7@domain.com", LocalDate.of(2021, 9, 10));
-		User user8 = new User("user8", "user8@domain.com", LocalDate.of(2021, 10, 23));
-		User user9 = new User("user9", "user9@domain.com", LocalDate.of(2021, 11, 30));
+		User user1 = new User("pedro", "user1@domain.com", LocalDate.of(2021, 03, 12));
+		User user2 = new User("user2", "user2@domain.com", LocalDate.of(2022, 04, 22));
+		User user3 = new User("user3", "user3@domain.com", LocalDate.of(2023, 05, 9));
+		User user4 = new User("user4", "user4@domain.com", LocalDate.of(2024, 06, 11));
+		User user5 = new User("user5", "user5@domain.com", LocalDate.of(2025, 07, 28));
+		User user6 = new User("user6", "user6@domain.com", LocalDate.of(2026, 8,11));
+		User user7 = new User("user7", "user7@domain.com", LocalDate.of(2027, 9, 10));
+		User user8 = new User("user8", "user8@domain.com", LocalDate.of(2028, 10, 23));
+		User user9 = new User("user9", "user9@domain.com", LocalDate.of(2029, 11, 30));
 		User user10 = new User("user10", "user10@domain.com", LocalDate.now());
 
 		List<User> list = Arrays.asList(user1,user2, user3, user4, user5, user6, user7, user8, user9, user10);
